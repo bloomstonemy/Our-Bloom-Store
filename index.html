@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom Stone MY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=glacial-indifference@400,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sage:#87ae73;--sage-light:#c4dbb9;--sage-dark:#5a7d48;--sage-pale:#eef5ea;
+  --stone:#f5f3ef;--stone2:#ebe7e0;--stone3:#d4cfc6;
+  --ink:#1c1b18;--ink2:#5c5a54;--ink3:#9a9891;
+  --white:#ffffff;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+  --r:10px;--r2:16px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Glacial Indifference',sans-serif;background:var(--stone);color:var(--ink);min-height:100vh}
+
+/* NAV */
+.announce{background:var(--ink);color:var(--sage-light);text-align:center;padding:9px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase}
+nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--ink);letter-spacing:2px;text-transform:uppercase;cursor:pointer}
+.nav-logo span{color:var(--sage)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--sage-dark)}
+.cart-trigger{background:none;border:none;cursor:pointer;position:relative;padding:4px;color:var(--ink)}
+.cart-trigger svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}
+.cart-dot{position:absolute;top:0;right:0;width:16px;height:16px;background:var(--sage);border-radius:50%;font-size:10px;font-weight:600;color:white;align-items:center;justify-content:center;display:none}
+.cart-dot.show{display:flex}
+
+/* HERO */
+.hero{background:var(--ink);padding:90px 5% 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:520px}
+.hero-text{color:white}
+.hero-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sage-light);margin-bottom:20px}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5vw,72px);font-weight:300;line-height:1.1;margin-bottom:24px}
+.hero-h1 em{font-style:italic;color:var(--sage-light)}
+.hero-p{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.8;max-width:420px;margin-bottom:36px}
+.hero-btn{display:inline-block;background:var(--sage);color:white;padding:14px 36px;font-size:12px;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;font-family:'Glacial Indifference',sans-serif;transition:background 0.2s;text-decoration:none}
+.hero-btn:hover{background:var(--sage-dark)}
+.hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hero-card{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);border-radius:var(--r2);overflow:hidden;text-align:center}
+.hero-card-img{width:100%;height:110px;object-fit:cover;display:block}
+.hero-card-body{padding:10px 12px}
+.hero-card-name{font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.5px}
+.hero-card-price{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--sage-light);margin-top:2px}
+
+/* VALUES */
+.values{background:var(--sage-pale);border-top:0.5px solid var(--sage-light);border-bottom:0.5px solid var(--sage-light);padding:40px 5%;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center}
+.value-icon{font-size:28px;margin-bottom:10px}
+.value-title{font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:6px}
+.value-desc{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* SECTION */
+.section{padding:64px 5%}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px}
+.section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300}
+
+/* COLOURS SECTION */
+.colours-section{background:var(--white);padding:60px 5%;border-top:0.5px solid var(--border)}
+.colours-intro{font-size:14px;color:var(--ink2);line-height:1.8;max-width:560px;margin-bottom:40px}
+.colours-grid{display:flex;flex-wrap:wrap;gap:28px 36px}
+.colour-item{display:flex;flex-direction:column;align-items:center;gap:10px;cursor:default}
+.colour-circle{width:72px;height:72px;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,0.1);border:0.5px solid rgba(0,0,0,0.08);transition:transform 0.2s}
+.colour-item:hover .colour-circle{transform:scale(1.08)}
+.colour-name{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink2);text-align:center;line-height:1.4}
+.colour-hex{font-size:10px;color:var(--ink3);text-align:center}
+
+/* PRODUCTS */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.product-card{background:var(--white);border-radius:var(--r2);border:0.5px solid var(--border);overflow:hidden;transition:transform 0.25s,border-color 0.25s}
+.product-card:hover{transform:translateY(-4px);border-color:var(--sage-light)}
+.product-img-wrap{height:220px;overflow:hidden;background:var(--stone);position:relative}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s}
+.product-card:hover .product-img-wrap img{transform:scale(1.04)}
+.product-badge{position:absolute;top:12px;left:12px;background:var(--ink);color:var(--sage-light);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:2px;z-index:1}
+.product-info{padding:18px 20px 20px}
+.product-cat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:6px;line-height:1.3}
+.product-desc{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:6px}
+.product-meta{font-size:11px;color:var(--ink3);margin-bottom:14px;line-height:1.7}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--ink)}
+.add-btn{background:var(--ink);color:white;border:none;padding:9px 20px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Glacial Indifference',sans-serif;border-radius:4px;transition:background 0.2s}
+.add-btn:hover{background:var(--sage)}
+.add-btn:disabled{background:var(--stone3);color:var(--ink3);cursor:not-allowed}
+
+/* COLOUR PICKER ON PRODUCT CARD */
+.colour-picker-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.colour-picker-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-right:2px;white-space:nowrap}
+.cp-swatch{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform 0.15s,border-color 0.15s;flex-shrink:0}
+.cp-swatch:hover{transform:scale(1.15)}
+.cp-swatch.selected{border-color:var(--ink);transform:scale(1.15)}
+.cp-swatch.white-swatch{border-color:#ccc}
+.cp-swatch.white-swatch.selected{border-color:var(--ink)}
+.colour-chosen{font-size:11px;color:var(--ink2);margin-left:4px;font-style:italic}
+
+/* CART DRAWER */
+.overlay{position:fixed;inset:0;background:rgba(28,27,24,0.45);z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;width:400px;max-width:100vw;height:100vh;background:var(--white);z-index:201;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{padding:24px 28px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-head h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400}
+.close-btn{background:none;border:none;cursor:pointer;font-size:22px;color:var(--ink2);line-height:1}
+.cart-body{flex:1;overflow-y:auto;padding:20px 28px}
+.cart-empty{text-align:center;padding:60px 0;color:var(--ink3)}
+.cart-empty-icon{font-size:48px;margin-bottom:16px}
+.cart-empty p{font-size:14px}
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:0.5px solid var(--border);align-items:center}
+.ci-img{width:54px;height:54px;background:var(--stone);border-radius:10px;object-fit:cover;flex-shrink:0}
+.ci-info{flex:1}
+.ci-name{font-size:14px;font-weight:500;margin-bottom:3px}
+.ci-price{font-size:13px;color:var(--ink2)}
+.qty-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+.qty-btn{width:28px;height:28px;background:var(--stone);border:0.5px solid var(--border2);border-radius:5px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:background 0.15s}
+.qty-btn:hover{background:var(--stone2)}
+.qty-n{font-size:14px;font-weight:500;min-width:22px;text-align:center}
+.cart-foot{padding:20px 28px;border-top:0.5px solid var(--border)}
+.cart-total{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:20px;margin-bottom:16px}
+.checkout-btn{width:100%;background:var(--ink);color:white;border:none;padding:15px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Glacial Indifference',sans-serif;transition:background 0.2s}
+.checkout-btn:hover{background:var(--sage)}
+.checkout-btn:disabled{background:var(--stone3);cursor:not-allowed;color:var(--ink3)}
+
+/* SCREENS */
+.screen{display:none}
+.screen.active{display:block}
+
+/* CHECKOUT */
+.checkout-page{max-width:640px;margin:0 auto;padding:52px 5%}
+.back-btn{background:none;border:none;font-size:13px;color:var(--ink2);cursor:pointer;font-family:'Glacial Indifference',sans-serif;display:flex;align-items:center;gap:6px;margin-bottom:28px;padding:0;letter-spacing:0.5px}
+.back-btn:hover{color:var(--ink)}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;margin-bottom:6px}
+.page-sub{font-size:13px;color:var(--ink2);margin-bottom:36px}
+.order-mini{background:var(--stone);border-radius:var(--r2);padding:20px 22px;margin-bottom:32px}
+.order-mini-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.order-line{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;color:var(--ink2)}
+.order-total{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:20px;border-top:0.5px solid var(--stone3);margin-top:10px;padding-top:12px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.form-group input,.form-group textarea{width:100%;padding:13px 16px;border:0.5px solid var(--border2);background:var(--white);font-size:15px;font-family:'Glacial Indifference',sans-serif;color:var(--ink);outline:none;border-radius:var(--r);transition:border 0.2s}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--sage)}
+.form-group textarea{min-height:90px;resize:vertical}
+.submit-btn{width:100%;background:var(--ink);color:white;border:none;padding:16px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Glacial Indifference',sans-serif;border-radius:var(--r);margin-top:8px;transition:background 0.2s}
+.submit-btn:hover{background:var(--sage)}
+
+/* PAYMENT */
+.payment-page{max-width:560px;margin:0 auto;padding:52px 5%}
+.qr-wrap{background:var(--white);border:0.5px solid var(--border);border-radius:var(--r2);padding:32px 28px;margin:24px 0;text-align:center}
+.pay-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.pay-amount{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;margin-bottom:4px}
+.pay-for{font-size:13px;color:var(--ink2);margin-bottom:24px}
+.qr-real-img{width:200px;height:200px;object-fit:contain;display:block;margin:0 auto;border-radius:8px}
+.timer{font-size:13px;color:var(--ink2);margin-top:14px}
+.timer span{color:var(--sage-dark);font-weight:500}
+
+/* BANK DETAILS BOX */
+.bank-box{background:var(--stone);border:0.5px solid var(--border2);border-radius:var(--r2);padding:20px 24px;margin:0 0 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;align-items:start}
+.bank-box-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;grid-column:1/-1}
+.bank-row{display:flex;flex-direction:column;gap:3px}
+.bank-row-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3)}
+.bank-row-val{font-size:14px;color:var(--ink);font-weight:500}
+.bank-row.full{grid-column:1/-1}
+
+.pay-note{background:var(--sage-pale);border:0.5px solid var(--sage-light);border-radius:var(--r);padding:14px 18px;font-size:13px;color:var(--sage-dark);line-height:1.7;margin-bottom:24px}
+.pay-note strong{color:var(--ink)}
+.paid-btn{width:100%;background:var(--sage);color:white;border:none;padding:16px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Glacial Indifference',sans-serif;border-radius:var(--r);transition:background 0.2s}
+.paid-btn:hover{background:var(--sage-dark)}
+.paid-btn:disabled{background:var(--stone3);cursor:not-allowed;color:var(--ink3)}
+
+/* RECEIPT */
+.receipt-page{max-width:500px;margin:0 auto;padding:52px 5%}
+.receipt-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.receipt-top{background:var(--ink);padding:32px;text-align:center}
+.receipt-check{font-size:44px;margin-bottom:12px}
+.receipt-h{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--sage-light)}
+.receipt-date{font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px;letter-spacing:1px}
+.receipt-body{padding:24px 28px}
+.r-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.r-row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;color:var(--ink2)}
+.r-row strong{color:var(--ink)}
+.r-divider{border:none;border-top:1px dashed var(--stone3);margin:16px 0}
+.r-footer{text-align:center;font-size:12px;color:var(--ink3);line-height:2;margin-top:4px}
+.print-btn{width:100%;background:var(--ink);color:white;border:none;padding:15px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Glacial Indifference',sans-serif;border-radius:var(--r);margin-top:20px;transition:background 0.2s}
+.print-btn:hover{background:var(--sage)}
+.again-btn{width:100%;background:transparent;color:var(--ink2);border:0.5px solid var(--border2);padding:13px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:'Glacial Indifference',sans-serif;border-radius:var(--r);margin-top:10px}
+.again-btn:hover{background:var(--stone)}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,0.4);text-align:center;padding:32px 5%;font-size:12px;letter-spacing:1px}
+footer span{color:var(--sage-light)}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:13px 28px;border-radius:40px;font-size:13px;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;border-left:3px solid var(--sage)}
+.toast.show{opacity:1}
+
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;padding:60px 5%}
+  .hero-visual{display:none}
+  .values{grid-template-columns:1fr;gap:24px}
+  .nav-links{display:none}
+  .cart-drawer{width:100vw}
+  .bank-box{grid-template-columns:1fr}
+  .colours-grid{gap:20px 24px}
+  .colour-circle{width:60px;height:60px}
+  #about > div{grid-template-columns:1fr!important;gap:40px!important}
+  #contact > div > div:last-of-type{grid-template-columns:1fr!important}
+  footer > div:first-child{grid-template-columns:1fr!important;gap:24px!important}
+}
+@media print{
+  nav,.announce,.overlay,.cart-drawer,.print-btn,.again-btn,.toast,footer{display:none!important}
+  body{background:white}
+  .receipt-card{border:none}
+  #screen-receipt.active{display:block!important}
+  #screen-catalog,#screen-checkout,#screen-payment{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="announce">Handcrafted with eco-friendly cement &nbsp;·&nbsp; Free delivery on orders above RM 150</div>
+
+<nav>
+  <div class="nav-logo" onclick="goTo('catalog')">Bloom<span>·</span>Stone</div>
+  <div class="nav-links">
+    <a href="#" onclick="goTo('catalog');return false">Shop</a>
+    <a href="#about" onclick="goTo('catalog');setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),100);return false">About</a>
+    <a href="#contact" onclick="goTo('catalog');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100);return false">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center">
+    <button class="cart-trigger" onclick="toggleCart()" aria-label="Open cart">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-dot" id="cart-dot">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ CATALOG SCREEN ═══════════════ -->
+<div class="screen active" id="screen-catalog">
+
+  <div class="hero">
+    <div class="hero-text">
+      <!-- Bloom Stone circle logo — centred at top of hero -->
+      <div style="display:flex;justify-content:center;margin-bottom:32px">
+        <img src="Bloom_Stone_Logo_B_W.jpeg" alt="Bloom Stone"
+          style="height:120px;width:120px;object-fit:cover;border-radius:50%;display:block;box-shadow:0 0 0 1px rgba(255,255,255,0.1)"
+          onerror="this.outerHTML='<div style=\'font-family:Cormorant Garamond,serif;font-size:32px;color:white;letter-spacing:3px;text-align:center\'>BLOOM STONE</div>'">
+      </div>
+      <div class="hero-tag">Handcrafted with care · Malaysia</div>
+      <h1 class="hero-h1">Where craft<br>meets <em>everyday</em><br>living</h1>
+      <p class="hero-p">Bloom Stone offers handmade eco-friendly cement décor designed to bring softness, warmth, and simplicity into everyday spaces.</p>
+      <a href="#catalog" class="hero-btn">Explore Collection</a>
+    </div>
+    <div class="hero-visual" id="hero-visual"></div>
+  </div>
+
+  <div class="values">
+    <div><div class="value-icon">🌿</div><div class="value-title">Minimalist</div><div class="value-desc">Simple forms, refined textures, and timeless design.</div></div>
+    <div><div class="value-icon">🤲</div><div class="value-title">Handcrafted</div><div class="value-desc">Each piece is individually poured by hand, making every creation uniquely its own.</div></div>
+    <div><div class="value-icon">📦</div><div class="value-title">Gift-Ready Packaging</div><div class="value-desc">Orders are carefully packed with love in elegant, gift-ready packaging for any occasion.</div></div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="section" id="catalog">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Our Collection</div>
+        <div class="section-title">Shop All Products</div>
+      </div>
+    </div>
+    <div class="product-grid" id="product-grid"></div>
+  </div>
+
+  <!-- COLOUR PALETTE SECTION -->
+  <div class="colours-section">
+    <div class="section-header" style="margin-bottom:16px">
+      <div>
+        <div class="section-label">Customise Your Piece</div>
+        <div class="section-title">Available Colours</div>
+      </div>
+    </div>
+    <p class="colours-intro">All our pieces are available in a soft selection of pastel tones, each carefully chosen to complement any space. When placing your order, simply let us know your preferred colour in the notes — or reach out to us directly.</p>
+    <div class="colours-grid" id="colours-grid"></div>
+  </div>
+
+  <!-- ABOUT US -->
+  <div id="about" style="background:var(--ink);padding:80px 5%">
+    <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+      <div>
+        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--sage-light);margin-bottom:16px">Our Story</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,48px);font-weight:300;color:white;line-height:1.15;margin-bottom:28px">Made with intention, <em style="font-style:italic;color:var(--sage-light)">crafted with love</em></h2>
+        <div style="width:40px;height:1px;background:var(--sage);margin-bottom:28px"></div>
+        <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.9;margin-bottom:18px">Bloom Stone is a Malaysia-based brand dedicated to creating handcrafted home décor that blends simplicity with thoughtful design. Each piece is carefully made by hand from start to finish, ensuring that no two items are ever exactly alike.</p>
+        <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.9;margin-bottom:18px">We use non-toxic, eco-friendly materials and sealers which makes our product water-resistant and safe for everyday use while maintaining durability and quality.</p>
+        <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.9">At Bloom Stone, we believe that beautiful home décor should be both accessible and meaningful.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 22px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--sage-light)">100%</div>
+          <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px">Handmade</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 22px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--sage-light)">8</div>
+          <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px">Colours Available</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 22px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--sage-light)">🌿</div>
+          <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px">Eco-Friendly</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 22px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--sage-light)">✦</div>
+          <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px">Unique Pieces</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT US -->
+  <div id="contact" style="background:var(--sage-pale);border-top:0.5px solid var(--sage-light);padding:80px 5%">
+    <div style="max-width:760px;margin:0 auto;text-align:center">
+      <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--sage-dark);margin-bottom:16px">Get In Touch</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,44px);font-weight:300;color:var(--ink);margin-bottom:16px">We'd love to hear from you</h2>
+      <p style="font-size:14px;color:var(--ink2);line-height:1.8;max-width:480px;margin:0 auto 48px">Have a question, a special request, or feedback to share? Reach out to us — we're always happy to help.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:560px;margin:0 auto">
+        <a href="tel:+601139682331" style="text-decoration:none">
+          <div style="background:var(--white);border:0.5px solid var(--border2);border-radius:16px;padding:28px 24px;text-align:center;transition:border-color 0.2s;cursor:pointer">
+            <div style="font-size:28px;margin-bottom:12px">📞</div>
+            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Call or WhatsApp</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);font-weight:400">+60 11-3968 2331</div>
+          </div>
+        </a>
+        <a href="mailto:bloomstone.my@gmail.com" style="text-decoration:none">
+          <div style="background:var(--white);border:0.5px solid var(--border2);border-radius:16px;padding:28px 24px;text-align:center;transition:border-color 0.2s;cursor:pointer">
+            <div style="font-size:28px;margin-bottom:12px">✉️</div>
+            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Email Us</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);font-weight:400">bloomstone.my<br>@gmail.com</div>
+          </div>
+        </a>
+      </div>
+      <p style="font-size:12px;color:var(--ink3);margin-top:32px;letter-spacing:0.5px">We typically respond within 1–2 business days 🌿</p>
+    </div>
+  </div>
+
+  <footer>
+    <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;padding-bottom:28px;border-bottom:0.5px solid rgba(255,255,255,0.08);text-align:left">
+      <div>
+        <img src="Bloom_Stone_Logo_B_W.jpeg" alt="Bloom Stone"
+          style="width:64px;height:64px;object-fit:cover;border-radius:50%;margin-bottom:12px;display:block;opacity:0.85">
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.8">Handcrafted cement décor<br>made with love in Malaysia.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px">Navigate</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="#" onclick="goTo('catalog');return false" style="font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none">Shop</a>
+          <a href="#about" onclick="goTo('catalog');setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),100);return false" style="font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none">About Us</a>
+          <a href="#contact" onclick="goTo('catalog');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100);return false" style="font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px">Contact</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:2">
+          <a href="tel:+601139682331" style="color:rgba(255,255,255,0.5);text-decoration:none">+60 11-3968 2331</a><br>
+          <a href="mailto:bloomstone.my@gmail.com" style="color:var(--sage-light);text-decoration:none">bloomstone.my@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:900px;margin:0 auto;padding-top:20px;text-align:center;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.5px">
+      © 2026 Bloom Stone MY. All rights reserved.
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════ CHECKOUT SCREEN ═══════════════ -->
+<div class="screen" id="screen-checkout">
+  <div class="checkout-page">
+    <button class="back-btn" onclick="goTo('catalog')">← Back to shop</button>
+    <div class="page-title">Your Details</div>
+    <div class="page-sub">Fill in your information to continue to payment</div>
+    <div class="order-mini">
+      <div class="order-mini-title">Order Summary</div>
+      <div id="co-items"></div>
+      <div class="order-total"><span>Total</span><span id="co-total">RM 0.00</span></div>
+    </div>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="f-name" placeholder="e.g. Siti Norzahra binti Ali">
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" id="f-phone" placeholder="e.g. 012-3456789">
+    </div>
+    <div class="form-group">
+      <label>Delivery Address</label>
+      <textarea id="f-address" placeholder="Street address, city, postcode, state..."></textarea>
+    </div>
+    <button class="submit-btn" onclick="toPayment()">Continue to Payment →</button>
+  </div>
+</div>
+
+<!-- ═══════════════ PAYMENT SCREEN ═══════════════ -->
+<div class="screen" id="screen-payment">
+  <div class="payment-page">
+    <button class="back-btn" onclick="goTo('checkout')" style="display:inline-flex;margin-bottom:20px">← Back</button>
+    <div class="page-title">Scan to Pay</div>
+    <div class="page-sub">Scan the QR code below with your banking app to complete payment</div>
+
+    <!-- QR CODE + AMOUNT -->
+    <div class="qr-wrap">
+      <div class="pay-label">Amount Due</div>
+      <div class="pay-amount" id="pay-amount">RM 0.00</div>
+      <div class="pay-for" id="pay-for">Order for —</div>
+      <!-- Your real Maybank QR — upload bloomstoneqrcode.jpg to GitHub alongside index.html -->
+      <img class="qr-real-img" src="bloomstoneqrcode.jpg" alt="Bloom Stone Enterprise — Maybank DuitNow QR"
+        onerror="this.outerHTML='<div style=\'width:200px;height:200px;border:2px dashed var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink3);margin:0 auto;text-align:center;padding:16px\'>Upload bloomstoneqrcode.jpg to GitHub</div>'">
+      <div class="timer">Payment window: <span id="timer-val">10:00</span></div>
+    </div>
+
+    <!-- BANK DETAILS -->
+    <div class="bank-box">
+      <div class="bank-box-title">Bank Transfer Details</div>
+      <div class="bank-row full">
+        <div class="bank-row-label">Account Name</div>
+        <div class="bank-row-val">Bloom Stone Enterprise</div>
+      </div>
+      <div class="bank-row">
+        <div class="bank-row-label">Bank</div>
+        <div class="bank-row-val">Maybank Berhad</div>
+      </div>
+      <div class="bank-row">
+        <div class="bank-row-label">Account Number</div>
+        <div class="bank-row-val">5647 2701 4697</div>
+      </div>
+    </div>
+
+    <div class="pay-note">
+      📱 Open <strong>Maybank2u, DuitNow</strong> or any banking app → Scan QR or transfer to account above → Enter exact amount → Pay
+    </div>
+
+    <button class="paid-btn" id="paid-btn" onclick="confirmPaid()">✓ I Have Completed Payment</button>
+  </div>
+</div>
+
+<!-- ═══════════════ RECEIPT SCREEN ═══════════════ -->
+<div class="screen" id="screen-receipt">
+  <div class="receipt-page">
+    <div class="receipt-card" id="printable">
+      <div class="receipt-top">
+        <div class="receipt-check">✓</div>
+        <div class="receipt-h">Payment Confirmed</div>
+        <div class="receipt-date" id="r-date"></div>
+      </div>
+      <div class="receipt-body">
+        <div style="margin-bottom:20px">
+          <div class="r-label">Customer Details</div>
+          <div class="r-row"><span>Name</span><strong id="r-name">—</strong></div>
+          <div class="r-row"><span>Phone</span><strong id="r-phone">—</strong></div>
+          <div class="r-row" style="align-items:flex-start"><span>Delivery to</span><strong id="r-addr" style="text-align:right;max-width:60%;font-size:13px">—</strong></div>
+        </div>
+        <hr class="r-divider">
+        <div style="margin-bottom:20px">
+          <div class="r-label">Items Ordered</div>
+          <div id="r-items"></div>
+        </div>
+        <hr class="r-divider">
+        <div class="r-row"><span>Subtotal</span><strong id="r-sub">—</strong></div>
+        <div class="r-row"><span>Delivery</span><strong>Free</strong></div>
+        <div class="r-row" style="margin-top:8px;padding-top:10px;border-top:0.5px solid var(--stone3)">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:20px">Total Paid</span>
+          <strong style="font-family:'Cormorant Garamond',serif;font-size:20px" id="r-total">—</strong>
+        </div>
+        <hr class="r-divider">
+        <div class="r-footer">
+          <div id="r-orderid" style="font-size:13px;color:var(--ink2);font-weight:500;margin-bottom:4px"></div>
+          Payment via Maybank DuitNow QR<br>
+          <em style="color:var(--sage-dark)">Thank you for supporting our small business 🌿</em>
+        </div>
+      </div>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ Print Receipt</button>
+    <button class="again-btn" onclick="newOrder()">← Continue Shopping</button>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-head">
+    <h2>Your Cart</h2>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cart-body"></div>
+  <div class="cart-foot">
+    <div class="cart-total"><span>Total</span><span id="cart-total">RM 0.00</span></div>
+    <button class="checkout-btn" id="checkout-btn" onclick="toCheckout()" disabled>Proceed to Checkout</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// EMAILJS SETUP — needed to receive order emails
+// 1. Sign up free at https://www.emailjs.com
+// 2. Add Gmail service → connect bloomstone.my@gmail.com
+// 3. Create a template with these variables:
+//    {{order_id}} {{order_date}} {{customer_name}} {{customer_phone}}
+//    {{customer_address}} {{customer_colour}} {{order_items}}
+//    {{order_total}}
+//    Also include the shipping label HTML block: {{shipping_label}}
+// 4. Replace the three placeholder strings below
+// ═══════════════════════════════════════════════════════════════
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+// Your WhatsApp number
+const WHATSAPP_NUMBER = '601139682331';
+
+// ═══════════════════════════════════════════════════════════════
+// PRODUCTS — update image filenames, prices & descriptions
+// Upload each image file to GitHub in the same folder as index.html
+// ═══════════════════════════════════════════════════════════════
+const PRODUCTS = [
+  {
+    id:1, name:'Bubble Tray', image:'bubbletray.jpg', price:30.00,
+    cat:'Home & Living', badge:'',
+    desc:'Handcrafted with eco-friendly cement, this minimal tray is perfect for jewellery, small accessories, or thoughtful gifting.',
+    meta:'Size: 13cm × 13cm × 2cm &nbsp;·&nbsp; Weight: 200g'
+  },
+  {
+    id:2, name:'Deep Pebble Bowl', image:'deeppebblebowl.jpg', price:90.00,
+    cat:'Home & Living', badge:'',
+    desc:'A handcrafted pebble-shaped bowl made with eco-friendly cement, designed to elevate entryways, desks, or coffee tables with a soft modern touch.',
+    meta:'Size: 20cm × 20cm × 5cm &nbsp;·&nbsp; Weight: 1kg',
+    colours: [{name:'White', sub:'Classic White', hex:'#FFFFFF'}]
+  },
+  {
+    id:3, name:'Ring Tray', image:'ringtray.jpg', price:30.00,
+    cat:'Home & Living', badge:'',
+    desc:'Handcrafted with eco-friendly cement, this compact tray is perfect for organising rings, earrings, and everyday jewellery essentials.',
+    meta:'Size: 10cm × 10cm × 2cm &nbsp;·&nbsp; Weight: 165g'
+  },
+  {
+    id:4, name:'Cloud Tray', image:'cloudtray.jpg', price:40.00,
+    cat:'Home & Living', badge:'',
+    desc:'A handcrafted cloud-shaped tray designed to bring a soft, luxurious feel to your space — perfect for accessories, keys, or gifting.',
+    meta:'Size: 20cm × 12cm × 2cm &nbsp;·&nbsp; Weight: 230g'
+  },
+  {
+    id:5, name:'Shell Bowl', image:'shellbowl.jpg', price:75.00,
+    cat:'Home & Living', badge:'',
+    desc:'Minimal and timeless, this handcrafted shell bowl features a smooth, weighty finish perfect for holding jewellery, keys, or decorative pieces.',
+    meta:'Size: 12cm × 12cm × 5cm &nbsp;·&nbsp; Weight: 545g'
+  },
+  {
+    id:6, name:'Vase', image:'vase.jpg', price:50.00,
+    cat:'Home & Living', badge:'',
+    desc:'A small handcrafted vase made with eco-friendly cement, designed to add a calm and luxurious touch to any table or corner of your home.',
+    meta:'Size: 7cm × 7cm × 10cm &nbsp;·&nbsp; Weight: 430g'
+  }
+];
+
+// COLOUR PALETTE
+const COLOURS = [
+  {name:'Mint',       sub:'Pastel Green',  hex:'#D1F0D1'},
+  {name:'Baby Blue',  sub:'Pastel Blue',   hex:'#C0E7EB'},
+  {name:'Butter',     sub:'Pastel Yellow', hex:'#FFF9B8'},
+  {name:'Blush',      sub:'Pastel Pink',   hex:'#FFD1DC'},
+  {name:'Lilac',      sub:'Pastel Purple', hex:'#EAE6F0'},
+  {name:'Peach',      sub:'Pastel Orange', hex:'#FFCDB8'},
+  {name:'White',      sub:'Classic White', hex:'#FFFFFF'},
+  {name:'Light Grey', sub:'Soft Grey',     hex:'#D3D3D3'},
+];
+
+// ═══════════════════════════════════════════════════════════════
+
+// cart stores { id: { qty, colour } }
+let cart = {};
+let timerInterval = null;
+
+const fmt = n => 'RM ' + Number(n).toFixed(2);
+
+function getTotal(){
+  return Object.values(cart).reduce((s,item)=>{
+    const p=PRODUCTS.find(x=>x.id==item.id); return s+p.price*item.qty;
+  },0);
+}
+
+// Track selected colour per product before adding
+const selectedColours = {};
+
+function selectColour(productId, colourName, el){
+  selectedColours[productId] = colourName;
+  // Update swatch UI
+  el.closest('.colour-picker-row').querySelectorAll('.cp-swatch').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('chosen-'+productId).textContent = colourName;
+  // Enable Add button
+  const btn = document.getElementById('addbtn-'+productId);
+  if(btn){ btn.disabled=false; }
+}
+
+function renderHero(){
+  const v=document.getElementById('hero-visual');
+  v.innerHTML=PRODUCTS.slice(0,4).map(p=>`
+    <div class="hero-card">
+      <img class="hero-card-img" src="${p.image}" alt="${p.name}"
+        onerror="this.parentElement.style.display='none'">
+      <div class="hero-card-body">
+        <div class="hero-card-name">${p.name}</div>
+        <div class="hero-card-price">${fmt(p.price)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderCatalog(){
+  const g=document.getElementById('product-grid');
+  g.innerHTML=PRODUCTS.map(p=>{
+    const palette = p.colours || COLOURS; // use per-product colours if set
+    const whiteOnly = palette.length === 1 && palette[0].hex === '#FFFFFF';
+    return `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="${p.image}" alt="${p.name}"
+          onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:52px\'>🪨</div>'">
+        ${p.badge?`<span class="product-badge">${p.badge}</span>`:''}
+      </div>
+      <div class="product-info">
+        <div class="product-cat">${p.cat}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-meta">${p.meta}</div>
+        <div class="colour-picker-row">
+          <span class="colour-picker-label">Colour</span>
+          ${palette.map(c=>`<div
+            class="cp-swatch${c.hex==='#FFFFFF'?' white-swatch':''}"
+            style="background:${c.hex}"
+            title="${c.name}"
+            onclick="selectColour(${p.id}, '${c.name}', this)"
+          ></div>`).join('')}
+          <span class="colour-chosen" id="chosen-${p.id}">${whiteOnly?'White — only available colour':''}</span>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">${fmt(p.price)}</div>
+          <button class="add-btn" id="addbtn-${p.id}" onclick="addToCart(${p.id})" ${whiteOnly?'':'disabled'}>+ Add</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  // Auto-select White for products that only have one colour option
+  PRODUCTS.forEach(p=>{
+    if(p.colours && p.colours.length===1){
+      selectedColours[p.id] = p.colours[0].name;
+      const swatch = document.querySelector(`#addbtn-${p.id}`)?.closest('.product-info')?.querySelector('.cp-swatch');
+      if(swatch) swatch.classList.add('selected');
+    }
+  });
+}
+
+function renderColours(){
+  const g=document.getElementById('colours-grid');
+  g.innerHTML=COLOURS.map(c=>`
+    <div class="colour-item">
+      <div class="colour-circle" style="background:${c.hex};${c.hex==='#FFFFFF'?'border:1.5px solid #ddd':''}" title="${c.name}"></div>
+      <div class="colour-name">${c.name}</div>
+      <div class="colour-hex">${c.sub}</div>
+    </div>`).join('');
+}
+
+function addToCart(id){
+  const colour = selectedColours[id];
+  if(!colour){ showToast('Please choose a colour first'); return; }
+  // Use id+colour as cart key so same product in different colours is separate
+  const key = id+'|'+colour;
+  if(!cart[key]) cart[key]={id, qty:0, colour};
+  cart[key].qty++;
+  updateCart();
+  showToast(`${PRODUCTS.find(x=>x.id==id).name} (${colour}) added`);
+}
+
+function changeQty(key, d){
+  if(!cart[key]) return;
+  cart[key].qty += d;
+  if(cart[key].qty <= 0) delete cart[key];
+  updateCart();
+}
+
+function updateCart(){
+  const count=Object.values(cart).reduce((a,item)=>a+item.qty,0);
+  const dot=document.getElementById('cart-dot');
+  dot.textContent=count;
+  count>0?dot.classList.add('show'):dot.classList.remove('show');
+  const body=document.getElementById('cart-body');
+  if(count===0){
+    body.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty</p></div>';
+    document.getElementById('checkout-btn').disabled=true;
+  } else {
+    body.innerHTML=Object.entries(cart).map(([key,item])=>{
+      const p=PRODUCTS.find(x=>x.id==item.id);
+      const colour=COLOURS.find(c=>c.name===item.colour);
+      return `<div class="cart-item">
+        <img class="ci-img" src="${p.image}" alt="${p.name}"
+          onerror="this.outerHTML='<div class=\\'ci-img\\'style=\\'display:flex;align-items:center;justify-content:center;font-size:22px\\'>🪨</div>'">
+        <div class="ci-info">
+          <div class="ci-name">${p.name}</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
+            ${colour?`<div style="width:12px;height:12px;border-radius:50%;background:${colour.hex};border:1px solid rgba(0,0,0,0.12);flex-shrink:0"></div>`:''}
+            <div class="ci-price">${item.colour} &nbsp;·&nbsp; ${fmt(p.price)} each</div>
+          </div>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQty('${key}',-1)">−</button>
+            <span class="qty-n">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${key}',1)">+</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    document.getElementById('checkout-btn').disabled=false;
+  }
+  document.getElementById('cart-total').textContent=fmt(getTotal());
+}
+
+function toggleCart(){
+  document.getElementById('cart-drawer').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+function toCheckout(){
+  toggleCart();
+  const items=document.getElementById('co-items');
+  items.innerHTML=Object.values(cart).map(item=>{
+    const p=PRODUCTS.find(x=>x.id==item.id);
+    return `<div class="order-line"><span>${p.name} · ${item.colour} × ${item.qty}</span><span>${fmt(p.price*item.qty)}</span></div>`;
+  }).join('');
+  document.getElementById('co-total').textContent=fmt(getTotal());
+  goTo('checkout');
+}
+
+function toPayment(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const addr=document.getElementById('f-address').value.trim();
+  if(!name||!phone||!addr){showToast('Please fill in all fields');return;}
+  document.getElementById('pay-amount').textContent=fmt(getTotal());
+  document.getElementById('pay-for').textContent='Order for '+name;
+  startTimer();
+  goTo('payment');
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  let s=600;
+  const el=document.getElementById('timer-val');
+  const tick=()=>{
+    const m=Math.floor(s/60),sec=s%60;
+    el.textContent=`${m}:${sec.toString().padStart(2,'0')}`;
+    if(s===0){clearInterval(timerInterval);el.textContent='Expired';}
+    s--;
+  };
+  tick(); timerInterval=setInterval(tick,1000);
+}
+
+async function confirmPaid(){
+  clearInterval(timerInterval);
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const addr=document.getElementById('f-address').value.trim();
+  const total=getTotal();
+  const oid='ORD-'+Date.now().toString().slice(-6);
+  const now=new Date();
+  const dateStr=now.toLocaleString('en-MY',{dateStyle:'long',timeStyle:'short'});
+
+  const itemsList=Object.values(cart).map(item=>{
+    const p=PRODUCTS.find(x=>x.id==item.id);
+    return `${p.name} (${item.colour}) × ${item.qty}  —  ${fmt(p.price*item.qty)}`;
+  }).join('\n');
+
+  const itemsHTML=Object.values(cart).map(item=>{
+    const p=PRODUCTS.find(x=>x.id==item.id);
+    const c=COLOURS.find(col=>col.name===item.colour);
+    return `<tr>
+      <td style="padding:6px 12px 6px 0">
+        ${p.name}
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${c?c.hex:'#eee'};border:1px solid rgba(0,0,0,0.1);margin:0 4px;vertical-align:middle"></span>
+        ${item.colour} × ${item.qty}
+      </td>
+      <td style="padding:6px 0;text-align:right;font-weight:600">${fmt(p.price*item.qty)}</td>
+    </tr>`;
+  }).join('');
+
+  // Disable button
+  const btn=document.getElementById('paid-btn');
+  btn.disabled=true; btn.textContent='Sending…';
+
+  // Build shipping label HTML for email
+  const shippingLabel=`
+<div style="font-family:sans-serif;max-width:600px;border:2px solid #1c1b18;border-radius:10px;overflow:hidden;margin-top:24px">
+  <div style="background:#1c1b18;padding:16px 24px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="font-size:18px;font-weight:600;color:#c4dbb9;letter-spacing:1px">Bloom Stone MY</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:2px">Shipping Label</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:13px;color:#87ae73;font-weight:600">#${oid}</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px">${dateStr}</div>
+    </div>
+  </div>
+  <div style="display:flex;border-bottom:1.5px solid #1c1b18">
+    <div style="flex:1;padding:18px 24px;border-right:1.5px solid #1c1b18">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#9a9891;margin-bottom:8px">From</div>
+      <div style="font-weight:600;font-size:15px;margin-bottom:4px">Bloom Stone MY</div>
+      <div style="font-size:13px;color:#5c5a54;line-height:1.7">bloomstone.my@gmail.com<br>+60 11-3968 2331<br>Malaysia</div>
+    </div>
+    <div style="flex:1;padding:18px 24px">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#9a9891;margin-bottom:8px">Ship To</div>
+      <div style="font-weight:600;font-size:15px;margin-bottom:4px">${name}</div>
+      <div style="font-size:13px;color:#5c5a54;line-height:1.7">${phone}<br>${addr}</div>
+    </div>
+  </div>
+  <div style="background:#eef5ea;padding:10px 24px;display:flex;justify-content:space-between;align-items:center">
+    <div style="font-size:11px;color:#5a7d48">Handle with care &nbsp;·&nbsp; Fragile cement items inside</div>
+    <div style="font-size:11px;color:#1c1b18;font-weight:600;letter-spacing:2px">${oid}</div>
+  </div>
+</div>`;
+
+  // ── EMAIL via EmailJS ──
+  try{
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,{
+      order_id:         oid,
+      order_date:       dateStr,
+      customer_name:    name,
+      customer_phone:   phone,
+      customer_address: addr,
+      order_items:      itemsList,
+      order_total:      fmt(total),
+      items_html:       itemsHTML,
+      shipping_label:   shippingLabel,
+    });
+  } catch(e){
+    console.warn('EmailJS not configured yet:',e);
+  }
+
+  // ── WHATSAPP ──
+  const waMsg=encodeURIComponent(
+`🌿 *NEW ORDER — Bloom Stone MY*
+Order: ${oid}
+Date: ${dateStr}
+
+👤 *Customer*
+Name: ${name}
+Phone: ${phone}
+Address: ${addr}
+
+📦 *Items*
+${itemsList}
+
+💰 *Total: ${fmt(total)}*`);
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}`,'_blank');
+
+  // ── RECEIPT ──
+  document.getElementById('r-name').textContent=name;
+  document.getElementById('r-phone').textContent=phone;
+  document.getElementById('r-addr').textContent=addr;
+  document.getElementById('r-sub').textContent=fmt(total);
+  document.getElementById('r-total').textContent=fmt(total);
+  document.getElementById('r-orderid').textContent='Order #'+oid;
+  document.getElementById('r-date').textContent=dateStr;
+  document.getElementById('r-items').innerHTML=Object.values(cart).map(item=>{
+    const p=PRODUCTS.find(x=>x.id==item.id);
+    const c=COLOURS.find(col=>col.name===item.colour);
+    return `<div class="r-row">
+      <span style="display:flex;align-items:center;gap:6px">
+        <span style="width:10px;height:10px;border-radius:50%;background:${c?c.hex:'#eee'};border:1px solid rgba(0,0,0,0.1);display:inline-block;flex-shrink:0"></span>
+        ${p.name} · ${item.colour} × ${item.qty}
+      </span>
+      <strong>${fmt(p.price*item.qty)}</strong>
+    </div>`;
+  }).join('');
+
+  goTo('receipt');
+}
+
+function newOrder(){
+  cart={};
+  for(const key in selectedColours) delete selectedColours[key];
+  ['f-name','f-phone','f-address'].forEach(id=>document.getElementById(id).value='');
+  const btn=document.getElementById('paid-btn');
+  btn.disabled=false; btn.textContent='✓ I Have Completed Payment';
+  updateCart();
+  renderCatalog(); // re-render to clear swatch selections
+  goTo('catalog');
+}
+
+function goTo(screen){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+screen).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+renderHero();
+renderCatalog();
+renderColours();
+updateCart();
+</script>
+</body>
+</html>
